@@ -28,6 +28,7 @@ bikes$interarrivals <- interarrivals/60
 dates_quarter <- format(start_time,'%Y-%m-%d')
 bikes$day_quarter <- NA
 bikes$start_min_day <- NA
+bikes$start_hour_day <- NA
 for(qd in unique(dates_quarter)){
 	day_indexes <- which(dates_quarter==qd)
 	bikes$day_quarter[day_indexes] <- which(unique(dates_quarter)==qd)
@@ -35,6 +36,7 @@ for(qd in unique(dates_quarter)){
 	# When did trips start relative to 00:00:00 of current day?
 	#day_start <- as.POSIXct(paste(qd,'00:00:00'),format='%Y-%m-%d %H:%M:%S')
 	bikes$start_min_day[day_indexes] <- as.numeric(format(day_trips,'%H'))*60+as.numeric(format(day_trips,'%M'))
+	bikes$start_hour_day[day_indexes] <- as.numeric(format(day_trips,'%H'))
 }
 
 write.csv(bikes,'bikes.csv',row.names=F)
