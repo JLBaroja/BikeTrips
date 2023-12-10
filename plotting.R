@@ -61,6 +61,16 @@ for(wk in unique(day_names)){
 axis(1,at=0:24)
 }
 
+
+sinusoidal <- function(t,A1=6,A2=2,f1=1/1440,f2=1/540,phi1=500,phi2=1100){
+	f <- A1*sin(2*pi*f1*t+phi1)+A2*sin(2*pi*f2*t+phi2)
+	return(f)
+}
+try(dev.off())
+x11(width=20,height=5)
+plot(NULL,xlim=c(0,1440),ylim=c(-10,10))
+t <- seq(0,1440,0.1)
+lines(t,sinusoidal(t))
 #try(dev.off())
 #x11(width=20,height=10)
 #layout(matrix(1:24,ncol=6,byrow=T))
