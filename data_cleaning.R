@@ -21,6 +21,7 @@ bikes$weekday <- weekdays.POSIXt(start_time)
 interarrivals <- rep(NA,nrow(bikes))
 interarrivals[2:length(interarrivals)] <- start_time[2:length(start_time)]-start_time[1:(length(start_time)-1)]
 bikes$interarrivals <- interarrivals/60
+bikes$interarrivals[1] <- as.numeric(format(start_time[1],'%H'))*60+as.numeric(format(start_time[1],'%M'))
 # Calculating start times with respect to each day,
 # as it makes sense to expect variations between weekends and
 # working days, and also across times with respect to midnight.
@@ -36,7 +37,7 @@ for(qd in unique(dates_quarter)){
 	# When did trips start relative to 00:00:00 of current day?
 	#day_start <- as.POSIXct(paste(qd,'00:00:00'),format='%Y-%m-%d %H:%M:%S')
 	bikes$start_min_day[day_indexes] <- as.numeric(format(day_trips,'%H'))*60+as.numeric(format(day_trips,'%M'))
-	bikes$start_hour_day[day_indexes] <- as.numeric(format(day_trips,'%H'))
+	bikes$start_hour_day[day_indexes] <- as.numeric(format(day_trips,'%H'))+1
 }
 
 write.csv(bikes,'bikes.csv',row.names=F)
