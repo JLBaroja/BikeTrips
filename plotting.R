@@ -1,4 +1,4 @@
-rm(list=ls())
+#rm(list=ls())
 bikes <- read.csv('bikes.csv')
 
 try(dev.off())
@@ -17,13 +17,15 @@ for(dy in unique(bikes$day_quarter)){
 	for(hr in hours){
 		hr_avg[dy,hr] <- mean(dy_bikes$interarrivals[dy_bikes$start_hour_day==hr],na.rm=T)
 	}
-	lines(dy_bikes$start_min_day,dy_bikes$interarrivals,col='#00000022')
+	#lines(dy_bikes$start_min_day,dy_bikes$interarrivals,col='#00000022')
+	points(dy_bikes$start_min_day,dy_bikes$interarrivals,col='#000000a2',pch=16,cex=.6)
 }
 for(dy in unique(bikes$day_quarter)){
 	lines(hours*60-0.5*60,hr_avg[dy,],lwd=2,type='o',pch=21,bg='#eeeeeea0',col='#3000ad82')
 }
 hr_min <- seq(0,1440,60)
 axis(1,at=hr_min,labels=hr_min/60)
+axis(2)
 points(hours*60-0.5*60,
 	apply(hr_avg,MARGIN=2,FUN=mean,na.rm=T),
 	type='o',pch=21,bg='#ffffffa0',col='#dd0012',lwd=2,cex=2)
@@ -39,13 +41,14 @@ for(dy in unique(bikes$day_quarter)){
 		col=colors[which(day_names==unique(dy_bikes$weekday))])
 }
 axis(1,at=0:24)
+axis(2)
 points(hours-0.5,
 	1/apply(hr_avg,MARGIN=2,FUN=mean,na.rm=T),
 	type='o',pch=21,bg='#ffffffc3',col='#dd0082',cex=2,lwd=2)
 
 
 
-try(dev.off())
+#try(dev.off())
 x11(width=15,height=15)
 layout(matrix(1:9,ncol=3,byrow=F))
 for(wk in unique(day_names)){
@@ -66,11 +69,13 @@ sinusoidal <- function(t,A1=6,A2=2,f1=1/1440,f2=1/540,phi1=500,phi2=1100){
 	f <- A1*sin(2*pi*f1*t+phi1)+A2*sin(2*pi*f2*t+phi2)
 	return(f)
 }
-try(dev.off())
-x11(width=20,height=5)
-plot(NULL,xlim=c(0,1440),ylim=c(-10,10))
-t <- seq(0,1440,0.1)
-lines(t,sinusoidal(t))
+
+#try(dev.off())
+#x11(width=20,height=5)
+#plot(NULL,xlim=c(0,1440),ylim=c(-10,10))
+#t <- seq(0,1440,0.1)
+#lines(t,sinusoidal(t))
+
 #try(dev.off())
 #x11(width=20,height=10)
 #layout(matrix(1:24,ncol=6,byrow=T))
