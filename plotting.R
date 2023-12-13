@@ -1,6 +1,7 @@
 #rm(list=ls())
 bikes <- read.csv('bikes.csv')
 
+if(F){
 try(dev.off())
 x11(width=10,height=10)
 par(mar=rep(2,4))
@@ -45,9 +46,9 @@ axis(2)
 points(hours-0.5,
 	1/apply(hr_avg,MARGIN=2,FUN=mean,na.rm=T),
 	type='o',pch=21,bg='#ffffffc3',col='#dd0082',cex=2,lwd=2)
+}
 
-
-
+if(F){
 #try(dev.off())
 x11(width=15,height=15)
 layout(matrix(1:9,ncol=3,byrow=F))
@@ -63,18 +64,18 @@ for(wk in unique(day_names)){
 	}
 axis(1,at=0:24)
 }
+}
 
-
-sinusoidal <- function(t,A1=6,A2=2,f1=1/1440,f2=1/540,phi1=500,phi2=1100){
-	f <- A1*sin(2*pi*f1*t+phi1)+A2*sin(2*pi*f2*t+phi2)
+sinusoidal <- function(t,A1=1,A2=.5,f1=1/24,f2=1/10,phi1=5,phi2=11,C=1.5){
+	f <- A1*sin(2*pi*f1*t+phi1)+A2*sin(2*pi*f2*t+phi2)+C
 	return(f)
 }
 
-#try(dev.off())
-#x11(width=20,height=5)
-#plot(NULL,xlim=c(0,1440),ylim=c(-10,10))
-#t <- seq(0,1440,0.1)
-#lines(t,sinusoidal(t))
+try(dev.off())
+x11(width=20,height=8)
+plot(NULL,xlim=c(0,24),ylim=c(0,3))
+t <- seq(0,24,0.1)
+lines(t,sinusoidal(t))
 
 #try(dev.off())
 #x11(width=20,height=10)

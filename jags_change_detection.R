@@ -38,7 +38,7 @@ bayes <- jags(data=observed,
 						  model.file='exponential_change_detection.bug',
 							parameters.to.save=unobserved,
 							inits=my_inits,
-							n.iter=100,n.chains=3,n.thin=10,n.burnin=00)
+							n.iter=1000,n.chains=3,n.thin=10,n.burnin=00)
 unlink('exponential_change_detection.bug')
 nds <- bayes$BUGSoutput$sims.list
 print(summary(bayes$BUGSoutput$summary))
