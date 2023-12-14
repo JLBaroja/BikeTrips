@@ -15,7 +15,7 @@ model{
 
 	# Sinusoidal model
   A1 <- -1
-  A2 ~ dunif(-.5,0)
+  A2 ~ dunif(-.1,0)
 	f1 <- 1/24
 	f2 ~ dunif(1/24,4/24)
 	phi1 ~ dunif(0,1)

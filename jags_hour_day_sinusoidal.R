@@ -21,16 +21,16 @@ model{
 	# Sinusoidal model
   A1 <- -1
   f1 <- 1/24
-	phi1 ~ dunif(0,1)
+	f2 ~ dunif(1/24,4/24)
 	
 	for(d in 1:7){
-  A2 [d]~ dunif(-0.5,0)
-	f2 [d]~ dunif(1/24,4/24)
-	phi2 [d]~ dunif(1,3)
-	C[d] ~ dunif(-(A1+A2[d]),3)
+  	A2 [d]~ dunif(-0.1,0)
+		phi1[d] ~ dunif(0,1)
+		phi2 [d]~ dunif(1,3)
+		C[d] ~ dunif(-(A1+A2[d]),1.5)
 		for(j in 1:24){
 			# Rates
-			lambda_post[j,d] <- A1*sin(2*pi*f1*j+phi1)+A2[d]*sin(2*pi*f2[d]*j+phi2[d])+C[d]
+			lambda_post[j,d] <- A1*sin(2*pi*f1*j+phi1[d])+A2[d]*sin(2*pi*f2*j+phi2[d])+C[d]
 		}
 	}
 	# Observed nodes
@@ -39,10 +39,17 @@ model{
 	}
 }
 ','hour_day_sinusoidal.bug')
+ins <- list(
+	list(C=runif(7,1.1,1.2)),
+	list(C=runif(7,1.1,1.2)),
+	list(C=runif(7,1.1,1.2)),
+	list(C=runif(7,1.1,1.2))
+)
 bayes <- jags(data=observed,
 						  model.file='hour_day_sinusoidal.bug',
+							inits=ins,
 							parameters.to.save=unobserved,
-							n.iter=25000,n.chains=4,n.thin=40,n.burnin=5000)
+							n.iter=8000,n.chains=4,n.thin=20,n.burnin=2000)
 unlink('hour_day_sinusoidal.bug')
 nds <- bayes$BUGSoutput$sims.list
 print(summary(bayes$BUGSoutput$summary))
