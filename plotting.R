@@ -49,6 +49,8 @@ points(hours-0.5,
 }
 
 if(F){
+day_names <- c('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday')
+colors <- c("#66a61e", "#e6ab02", "#1b9e77", "#d95f02", "#7570b3","#fd2c3b","#77d6cf")
 #try(dev.off())
 x11(width=15,height=15)
 layout(matrix(1:9,ncol=3,byrow=F))
@@ -66,16 +68,6 @@ axis(1,at=0:24)
 }
 }
 
-sinusoidal <- function(t,A1=1,A2=.5,f1=1/24,f2=1/10,phi1=5,phi2=11,C=1.5){
-	f <- A1*sin(2*pi*f1*t+phi1)+A2*sin(2*pi*f2*t+phi2)+C
-	return(f)
-}
-
-try(dev.off())
-x11(width=20,height=8)
-plot(NULL,xlim=c(0,24),ylim=c(0,3))
-t <- seq(0,24,0.1)
-lines(t,sinusoidal(t))
 
 #try(dev.off())
 #x11(width=20,height=10)
