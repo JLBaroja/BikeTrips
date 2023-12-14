@@ -58,6 +58,7 @@ plot_marginal('C',label='D',
 	axis_label=expression(paste('Average Rate',' (',beta,')')),xlimz=c(1.01,1.06))
 par(mar=c(2,2,2,1.65))
 plot(NULL,xlim=c(-0.06,-0.01),ylim=c(0.4,0.65),axes=F)
+text(-0.06,0.65,'E',cex=2,font=2,adj=c(0,1))
 box()
 axis(1)
 axis(2,padj=-0.5)
@@ -73,7 +74,7 @@ for(dy in 1:7){
 par(mar=rep(1,4))
 plot(NULL,xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
 legend(0,0,xjust=0.5,yjust=0.5,legend=days,
-	pt.bg=paste(day_cols,'77',sep=''),pt.lwd=2,
+	pt.bg=paste(day_cols,'77',sep=''),pt.lwd=1.5,
 	pt.cex=2,col=day_cols,pch=21,cex=1.25,
 	box.lty='blank')
 dev.off()
